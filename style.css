@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,700;1,400;1,800&display=swap");
 .attribution {
   font-size: 11px;
   text-align: center;
@@ -33,6 +34,7 @@ body main #input_Date input {
   height: 65px;
   border-radius: 10px;
   border: 2px solid hsl(0, 0%, 86%);
+  text-align: center;
 }
 body main hr {
   width: 80%;
@@ -49,6 +51,7 @@ body main #arrow_Image {
   position: relative;
   top: -50px;
   left: 950px;
+  cursor: pointer;
 }
 body main #arrow_Image svg {
   background-color: hsl(259, 100%, 65%);
@@ -62,10 +65,14 @@ body main #result {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  font-family: "Poppins", sans-serif;
 }
 body main #result p {
   font-size: 52px;
   margin: 30px 0;
+}
+body main #result a {
+  color: hsl(259, 100%, 65%);
 }
 
 @media screen and (max-width: 600px) {
