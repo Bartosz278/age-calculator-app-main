@@ -1,134 +1,56 @@
-const date = new Date();
-function daysCounter(liczba,end){
-    let counter = 0;
-    for(i=liczba;i<=end;i++){
-        switch(true) {
-            case (i==1):
-                counter = counter + 31;
-            break
-            case (i==2):
-                if(yearValue%4==0){
-                    counter = counter + 29;
-                }else{
-                    counter = counter + 28;
-                }
-            break
-            case (i==3):
-                counter = counter + 31;
-            break
-            case (i==4):
-                counter = counter + 30;
-            break
-            case (i==5):
-                counter = counter + 31;
-            break
-            case (i==6):
-                counter = counter + 30;
-            break
-            case (i==7):
-                counter = counter + 31;
-            break
-            case (i==8):
-                counter = counter + 31;
-            break
-            case (i==9):
-                counter = counter + 30;
-            break
-            case (i==10):
-                counter = counter + 31;
-            break
-            case (i==11):
-                counter = counter + 30;
-            break
-            case (i==12):
-                counter = counter + 31;
-            break
-            default:
-            console.log('wrong input');
-            break
-        }
-    }
-    return counter;
+function getData(){
+function obliczRozniceDaty(data) {
+
+  const dzisiaj = new Date();
+  const podanaData = new Date(data);
+  let roznicaLat = dzisiaj.getFullYear() - podanaData.getFullYear();
+  if (dzisiaj.getMonth() < podanaData.getMonth() || (dzisiaj.getMonth() === podanaData.getMonth() && dzisiaj.getDate() < podanaData.getDate())) {
+    roznicaLat--;
+  }
+
+  let roznicaMiesiecy = dzisiaj.getMonth() - podanaData.getMonth();
+  if (roznicaMiesiecy < 0) {
+    roznicaMiesiecy += 12;
+  }
+  let roznicaDni = dzisiaj.getDate() - podanaData.getDate();
+
+  if (roznicaDni < 0) {
+    const ostatniDzienMiesiaca = new Date(dzisiaj.getFullYear(), dzisiaj.getMonth(), 0).getDate();
+    roznicaDni = ostatniDzienMiesiaca - podanaData.getDate() + dzisiaj.getDate();
+    roznicaMiesiecy--;
+  }
+
+  return {
+    lata: roznicaLat,
+    miesiace: roznicaMiesiecy,
+    dni: roznicaDni,
+  }
 }
 
-function getData(){
-    var dayValue = Number(document.getElementById('day').value);
-    var monthValue = Number(document.getElementById('month').value);
-    var yearValue = Number(document.getElementById('year').value);
-    var dateInMonths = (date.getFullYear() - yearValue+1)*365;
-    var przestepne = [];
-    
-    if(dayValue != '' && monthValue != '' && yearValue != ''){
-        document.getElementById('dayOutput').innerHTML = dayValue+' ';
-        document.getElementById('monthOutput').innerHTML = dateInMonths%12+' ';
-        document.getElementById('yearOutput').innerHTML = date.getFullYear() - yearValue+' ';
-        for(i=yearValue; i<date.getFullYear(); i++){
-            if(i%4==0){
-                przestepne.push(i);
-            }else{
-                continue;
-            }
-        }
+let dayValue = Number(document.getElementById('day').value);
+let monthValue = Number(document.getElementById('month').value);
+let yearValue = Number(document.getElementById('year').value);
+
+const dataUrodzenia = yearValue+'-'+monthValue+'-'+dayValue; 
+const roznica = obliczRozniceDaty(dataUrodzenia);
+
+
+if(dayValue != '' && monthValue != '' && yearValue != ''){
+        document.getElementById('dayOutput').innerHTML = roznica.dni+' ';
+        document.getElementById('monthOutput').innerHTML = roznica.miesiace+' ';
+        document.getElementById('yearOutput').innerHTML = roznica.lata+' ';
     }
     else{
         console.log('puste');
     }
-    przestepne.sort();
-    console.log(przestepne);
-    let currentMonth = Number(date.getMonth()+1);
-    let srodekLat = (date.getFullYear()-yearValue-1)*365+przestepne.length;
-    let poczatekLat = daysCounter(monthValue,12)-dayValue;
-    let counter = 0;
-    for(i=1; i<=currentMonth; i++){
-        switch(true) {
-            case (i==1):
-                counter = counter + 31;
-            break
-            case (i==2):
-                if(date.getFullYear()%4==0){
-                    counter = counter + 29;
-                }else{
-                    counter = counter + 28;
-                }
-            break
-            case (i==3):
-                counter = counter + 31;
-            break
-            case (i==4):
-                counter = counter + 30;
-            break
-            case (i==5):
-                counter = counter + 31;
-            break
-            case (i==6):
-                counter = counter + 30;
-            break
-            case (i==7):
-                counter = counter + 31;
-            break
-            case (i==8):
-                counter = counter + 31;
-            break
-            case (i==9):
-                counter = counter + 30;
-            break
-            case (i==10):
-                counter = counter + 31;
-            break
-            case (i==11):
-                counter = counter + 30;
-            break
-            case (i==12):
-                counter = counter + 31;
-            break
-            default:
-            console.log('wrong input');
-            break
-        }
-    }
-    console.log(poczatekLat);
-    console.log(srodekLat);
-    console.log(counter);
-    console.log(poczatekLat+srodekLat+counter);
-}
+    function dniOdDaty(data) {
+        const dzisiaj = new Date();
+        const podanaData = new Date(data);
+        const roznicaMs = dzisiaj - podanaData;
+        const roznicaDni = Math.floor(roznicaMs / (1000 * 60 * 60 * 24));
+        return roznicaDni;
+      }
+      const iloscDni = dniOdDaty(dataUrodzenia);
+      console.log(`Ilość dni od daty: ${iloscDni}`);
 
+}
