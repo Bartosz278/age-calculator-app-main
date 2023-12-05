@@ -61,6 +61,8 @@ body main #result {
   font-family: "Poppins", sans-serif;
   font-style: italic;
   font-weight: 800;
+  font-style: italic;
+  font-weight: 800;
 }
 body main #result p {
   font-size: 82px;
@@ -103,12 +105,7 @@ body main #result #numberOfDay {
     margin: 5px 0;
   }
   body main #result a {
-    color: hsl(259, 100%, 65%);
     font-size: 50px;
-  }
-  body main #result #numberOfDay {
-    color: black;
-    font-size: 18px;
   }
 }
 @media only screen and (max-height: 900px) {
